@@ -1,40 +1,29 @@
 package dto
 
-type (
-	Node struct {
-		Title string
-		Slug  string
-		Kind  string
-	}
-
-	NodeChanger func(o *Node)
-)
+type Node struct {
+	Content    string
+	ContentURI string
+	Kind       string
+	Slug       string
+	Tags       []string
+	Title      string
+}
 
 // NewNode builds node DTO object from the functional options.
-func NewNode(changers ...NodeChanger) (node Node) {
-	for _, c := range changers {
-		c(&node)
+func NewNode(valueSetters ...NodeValueSetter) (node Node) {
+	for _, vs := range valueSetters {
+		vs(&node)
 	}
 
 	return node
 }
 
-// WithNodeTitle is a node creation functional option.
-func WithNodeTitle(t string) NodeChanger {
-	return func(o *Node) {
-		o.Title = t
-	}
-}
-// WithNodeName is a node creation functional option.
-func WithNodeSlug(slug string) NodeChanger {
-	return func(o *Node) {
-		o.Slug = slug
-	}
-}
+// Node function option builders.
+type NodeValueSetter func(o *Node)
 
-// WithNodeKind is a node creation functional option.
-func WithNodeKind(k string) NodeChanger {
-	return func(o *Node) {
-		o.Kind = k
-	}
-}
+func WithNodeContent(c string) NodeValueSetter    { return func(o *Node) { o.Content = c } }
+func WithNodeContentURI(u string) NodeValueSetter { return func(o *Node) { o.ContentURI = u } }
+func WithNodeKind(k string) NodeValueSetter       { return func(o *Node) { o.Kind = k } }
+func WithNodeSlug(s string) NodeValueSetter       { return func(o *Node) { o.Slug = s } }
+func WithNodeTags(tt []string) NodeValueSetter    { return func(o *Node) { o.Tags = tt } }
+func WithNodeTitle(t string) NodeValueSetter      { return func(o *Node) { o.Title = t } }

@@ -4,9 +4,36 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+
+	"github.com/ameteiko/mindnet/src/domain/value/dto"
 )
 
-func TestSanitiseTitle(t *testing.T) {
+func TestNodeSanitise(t *testing.T) {
+	tcs := []struct {
+		desc          string
+		rawNode       dto.Node
+		sanitisedNode dto.Node
+	}{
+		{
+			desc:          "TestSanitiseForAnEmptyDTO",
+			rawNode:       dto.Node{},
+			sanitisedNode: dto.Node{},
+		},
+	}
+
+	for i := range tcs {
+		tc := tcs[i]
+		t.Run(tc.desc, func(t *testing.T) {
+			s := Node{}
+
+			sanitisedNode := s.Sanitise(tc.rawNode)
+
+			assert.Equal(t, tc.sanitisedNode, sanitisedNode)
+		})
+	}
+}
+
+func TestSanitiseNodeTitle(t *testing.T) {
 	tcs := []struct {
 		desc           string
 		title          string
@@ -37,16 +64,59 @@ func TestSanitiseTitle(t *testing.T) {
 	for i := range tcs {
 		tc := tcs[i]
 		t.Run(tc.desc, func(t *testing.T) {
-			s := Node{}
 
-			sanitisedTitle := s.sanitiseTitle(tc.title)
+			sanitisedTitle := Node{}.sanitiseTitle(tc.title)
 
-			assert.Equal(t, tc.sanitisedTitle, sanitisedTitle, "Sanitised title must match")
+			assert.Equal(t, tc.sanitisedTitle, sanitisedTitle)
 		})
 	}
 }
 
-func TestSanitiseSlug(t *testing.T) {
+func TestSanitiseNodeKind(t *testing.T) {
+	tcs := []struct {
+		desc          string
+		kind          string
+		sanitisedKind string
+	}{
+		{
+			desc:          "ForAnEmptyValue",
+			kind:          "",
+			sanitisedKind: "",
+		},
+		{
+			desc:          "ForAnEmptyWhitespacesKind",
+			kind:          "   ",
+			sanitisedKind: "",
+		},
+		{
+			desc:          "ForAValidKindValue",
+			kind:          " artefact  ",
+			sanitisedKind: "artefact",
+		},
+		{
+			desc:          "ForARegisteredKindValueShortcut",
+			kind:          "artf  ",
+			sanitisedKind: "artefact",
+		},
+		{
+			desc:          "ForARegisteredMisspelledShortcut",
+			kind:          "artifact",
+			sanitisedKind: "artefact",
+		},
+	}
+
+	for i := range tcs {
+		tc := tcs[i]
+		t.Run(tc.desc, func(t *testing.T) {
+
+			sanitisedKind := Node{}.sanitiseKind(tc.kind)
+
+			assert.Equal(t, tc.sanitisedKind, sanitisedKind)
+		})
+	}
+}
+
+func TestSanitiseNodeSlug(t *testing.T) {
 	tcs := []struct {
 		desc          string
 		slug          string
@@ -88,11 +158,59 @@ func TestSanitiseSlug(t *testing.T) {
 	for i := range tcs {
 		tc := tcs[i]
 		t.Run(tc.desc, func(t *testing.T) {
-			nodeSanitiser := Node{}
 
-			sanitisedSlug := nodeSanitiser.sanitiseSlug(tc.slug)
+			sanitisedSlug := Node{}.sanitiseSlug(tc.slug)
 
-			assert.Equal(t, tc.sanitisedSlug, sanitisedSlug, "Sanitised slug doesn't match.")
+			assert.Equal(t, tc.sanitisedSlug, sanitisedSlug)
+		})
+	}
+}
+
+func TestSanitiseNodeTags(t *testing.T) {
+	tcs := []struct {
+		desc          string
+		tags          []string
+		sanitisedTags []string
+	}{
+		{
+			desc:          "ForANilTagsList",
+			tags:          nil,
+			sanitisedTags: nil,
+		},
+		{
+			desc:          "ForAnEmptyTagsList",
+			tags:          []string{},
+			sanitisedTags: nil,
+		},
+		{
+			desc:          "ForASingleTag",
+			tags:          []string{"  tag   "},
+			sanitisedTags: []string{"tag"},
+		},
+		{
+			desc:          "ForASingleMultiWordTagTag",
+			tags:          []string{"  tag  value    "},
+			sanitisedTags: []string{"tag value"},
+		},
+		{
+			desc:          "ForSeveralIdenticalTags",
+			tags:          []string{"  some tag", "some tag  "},
+			sanitisedTags: []string{"some tag"},
+		},
+		{
+			desc:          "ForMultipleTags",
+			tags:          []string{"  some tag", "yet  another tag  ", "   some   tag  "},
+			sanitisedTags: []string{"some tag", "yet another tag"},
+		},
+	}
+
+	for i := range tcs {
+		tc := tcs[i]
+		t.Run(tc.desc, func(t *testing.T) {
+
+			sanitisedTags := Node{}.sanitiseTags(tc.tags)
+
+			assert.Equal(t, tc.sanitisedTags, sanitisedTags)
 		})
 	}
 }

@@ -5,5 +5,5 @@ import (
 )
 
 func ValidateNode(n dto.Node) error {
-
+	return nil
 }
