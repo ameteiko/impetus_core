@@ -31,6 +31,8 @@ func (s Node) Sanitise(raw dto.Node) (node dto.Node) {
 // sanitiseKind performs:
 //  - removing of starting and trailing whitespaces
 //  - mapping of the shortcuts and misspelled values to a correct one.
+//
+// TODO: maybe return a default value Artifact?
 func (_ Node) sanitiseKind(k string) string {
 	k = trim(k)
 
