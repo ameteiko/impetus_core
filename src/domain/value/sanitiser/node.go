@@ -22,7 +22,7 @@ func (s Node) Sanitise(raw dto.Node) (node dto.Node) {
 	node.Content = trim(raw.Content)
 	node.ContentURI = trim(raw.ContentURI)
 	node.Kind = s.sanitiseKind(raw.Kind)
-	node.Slug = s.sanitiseSlug(raw.Slug)
+	node.Slug = s.sanitiseSlug(raw.Slug, raw.Title)
 	node.Title = s.sanitiseTitle(raw.Title)
 
 	return node
@@ -49,12 +49,19 @@ func (_ Node) sanitiseKind(k string) string {
 	return k
 }
 
+// sanitiseSlug performs slug sanitising. If slug parameter is empty, then the title is used to generate a slug.
 // sanitiseSlug performs:
 // 	- cleaning for starting and trailing whitespaces
 //  - casts the value to the lover case
 //  - replaces all the spaces to the dashes.
-func (_ Node) sanitiseSlug(s string) string {
+func (_ Node) sanitiseSlug(s string, t string) string {
 	s = trim(s)
+
+	// Take the title as a default slug value.
+	if s == "" {
+		s = trim(t)
+	}
+
 	s = strings.ToLower(s)
 	s = mergeWhitespaces(s)
 	s = strings.ReplaceAll(s, " ", whitespaceReplacement)
@@ -69,7 +76,7 @@ func (_ Node) sanitiseSlug(s string) string {
 // TODO: Think of capitalising the words in the title: "Router for an http server" -> "Router for an HTTP Server".
 func (_ Node) sanitiseTitle(t string) string {
 	t = trim(t)
-	t = strings.Join(strings.Fields(t), " ")
+	t = mergeWhitespaces(t)
 
 	return t
 }

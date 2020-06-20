@@ -120,37 +120,62 @@ func TestSanitiseNodeSlug(t *testing.T) {
 	tcs := []struct {
 		desc          string
 		slug          string
+		title         string
 		sanitisedSlug string
 	}{
 		{
 			desc:          "ForACleanSlug",
 			slug:          "shell",
+			title:         "",
+			sanitisedSlug: "shell",
+		},
+		{
+			desc:          "ForACleanSlugAndNotEmptyTitle",
+			slug:          "shell",
+			title:         "title",
 			sanitisedSlug: "shell",
 		},
 		{
 			desc:          "ForAnEmptySlug",
 			slug:          "",
+			title:         "",
 			sanitisedSlug: "",
+		},
+		{
+			desc:          "ForAnEmptySlugAndNotEmptyTitle",
+			slug:          "",
+			title:         " title ",
+			sanitisedSlug: "title",
+		},
+		{
+			desc:          "ForAnEmptySlugAndNotEmptyMultiWordTitle",
+			slug:          "",
+			title:         "  SheLL  ScripTing env    variables    ",
+			sanitisedSlug: "shell-scripting-env-variables",
 		},
 		{
 			desc:          "ForAnEmptyWhitespacesSlug",
 			slug:          "  ",
+			title:         "",
 			sanitisedSlug: "",
 		},
 		{
 			desc:          "ForASlugWrappedWithWhitespaces",
 			slug:          " shell  ",
+			title:         "",
 			sanitisedSlug: "shell",
 		},
 		{
 			desc:          "ForASlugWithCapitalLetters",
 			slug:          "SheLL",
+			title:         "",
 			sanitisedSlug: "shell",
 		},
 
 		{
 			desc:          "ForASlugWithSeveralWords",
 			slug:          " SheLL  ScripTing env    variables   ",
+			title:         "",
 			sanitisedSlug: "shell-scripting-env-variables",
 		},
 	}
@@ -159,7 +184,7 @@ func TestSanitiseNodeSlug(t *testing.T) {
 		tc := tcs[i]
 		t.Run(tc.desc, func(t *testing.T) {
 
-			sanitisedSlug := Node{}.sanitiseSlug(tc.slug)
+			sanitisedSlug := Node{}.sanitiseSlug(tc.slug, tc.title)
 
 			assert.Equal(t, tc.sanitisedSlug, sanitisedSlug)
 		})
