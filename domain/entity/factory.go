@@ -1,8 +1,8 @@
 package entity
 
 import (
-	"github.com/ameteiko/mindnet/src/domain/entity/dto"
-	"github.com/ameteiko/mindnet/src/domain/value"
+	"github.com/ameteiko/mindnet/domain/entity/dto"
+	"github.com/ameteiko/mindnet/domain/value"
 )
 
 type (

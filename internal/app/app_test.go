@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
-	"github.com/ameteiko/mindnet/src/platform/testdata"
+	"github.com/ameteiko/mindnet/internal/platform/testdata"
 )
 
 type AppTestSuite struct {

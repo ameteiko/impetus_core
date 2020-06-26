@@ -1,7 +1,7 @@
 package entity
 
 import (
-	"github.com/ameteiko/mindnet/src/domain/value"
+	"github.com/ameteiko/mindnet/domain/value"
 )
 
 type Relation struct {

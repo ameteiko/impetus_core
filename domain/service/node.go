@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/ameteiko/mindnet/src/domain/entity"
+	"github.com/ameteiko/mindnet/domain/entity"
 )
 
 type Node struct {}

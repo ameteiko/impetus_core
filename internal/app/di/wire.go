@@ -6,14 +6,14 @@ import (
 	"github.com/google/wire"
 	_neo4j "github.com/neo4j/neo4j-go-driver/neo4j"
 
-	"github.com/ameteiko/mindnet/src/domain/entity"
-	"github.com/ameteiko/mindnet/src/domain/service"
-	"github.com/ameteiko/mindnet/src/domain/value"
-	"github.com/ameteiko/mindnet/src/domain/value/sanitiser"
-	"github.com/ameteiko/mindnet/src/domain/value/validator"
-	"github.com/ameteiko/mindnet/src/internal/app"
-	"github.com/ameteiko/mindnet/src/platform/neo4j"
-	"github.com/ameteiko/mindnet/src/platform/services"
+	"github.com/ameteiko/mindnet/domain/entity"
+	"github.com/ameteiko/mindnet/domain/service"
+	"github.com/ameteiko/mindnet/domain/value"
+	"github.com/ameteiko/mindnet/domain/value/sanitiser"
+	"github.com/ameteiko/mindnet/domain/value/validator"
+	"github.com/ameteiko/mindnet/internal/app"
+	"github.com/ameteiko/mindnet/internal/platform/neo4j"
+	"github.com/ameteiko/mindnet/internal/platform/services"
 )
 
 func provideValueSanitiser() (s sanitiser.Sanitiser) {

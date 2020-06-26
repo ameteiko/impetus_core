@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ameteiko/mindnet/src/domain/entity/dto"
-	appdi "github.com/ameteiko/mindnet/src/internal/app/di"
-	"github.com/ameteiko/mindnet/src/internal/config"
-	"github.com/ameteiko/mindnet/src/internal/di"
+	"github.com/ameteiko/mindnet/cmd/di"
+	"github.com/ameteiko/mindnet/domain/entity/dto"
+	appdi "github.com/ameteiko/mindnet/internal/app/di"
+	"github.com/ameteiko/mindnet/internal/config"
 )
 
 //go:generate wire

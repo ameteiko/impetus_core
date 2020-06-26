@@ -6,15 +6,16 @@
 package di
 
 import (
-	"github.com/ameteiko/mindnet/src/domain/entity"
-	"github.com/ameteiko/mindnet/src/domain/service"
-	"github.com/ameteiko/mindnet/src/domain/value"
-	"github.com/ameteiko/mindnet/src/domain/value/sanitiser"
-	"github.com/ameteiko/mindnet/src/domain/value/validator"
-	"github.com/ameteiko/mindnet/src/internal/app"
-	neo4j2 "github.com/ameteiko/mindnet/src/platform/neo4j"
-	"github.com/ameteiko/mindnet/src/platform/services"
 	"github.com/neo4j/neo4j-go-driver/neo4j"
+
+	"github.com/ameteiko/mindnet/domain/entity"
+	"github.com/ameteiko/mindnet/domain/service"
+	"github.com/ameteiko/mindnet/domain/value"
+	"github.com/ameteiko/mindnet/domain/value/sanitiser"
+	"github.com/ameteiko/mindnet/domain/value/validator"
+	"github.com/ameteiko/mindnet/internal/app"
+	neo4j2 "github.com/ameteiko/mindnet/internal/platform/neo4j"
+	"github.com/ameteiko/mindnet/internal/platform/services"
 )
 
 // Injectors from wire.go:

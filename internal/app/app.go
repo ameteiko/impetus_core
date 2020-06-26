@@ -1,9 +1,9 @@
 package app
 
 import (
-	"github.com/ameteiko/mindnet/src/domain/entity"
-	"github.com/ameteiko/mindnet/src/domain/entity/dto"
-	"github.com/ameteiko/mindnet/src/domain/value"
+	"github.com/ameteiko/mindnet/domain/entity"
+	"github.com/ameteiko/mindnet/domain/entity/dto"
+	"github.com/ameteiko/mindnet/domain/value"
 )
 
 type (
@@ -17,10 +17,6 @@ type (
 	}
 	NodeService interface {
 		Relate(*entity.Node, entity.Relation)
-	}
-
-	unitOfWork interface {
-		Command()
 	}
 
 	App struct {
@@ -39,7 +35,6 @@ func New(entityFactory EntityFactory, nodeRepo NodeRepository, nodeService NodeS
 }
 
 // CreateNode creates a new node in the application.
-// TODO: rethink on the errors list to be a single error.
 func (a App) CreateNode(n dto.Node) (entity.Node, error) {
 	node, err := a.entityFactory.Node(n)
 	if err != nil {

@@ -1,3 +1,2 @@
-# Ignore all local data
-.data
+# Ignore local data
 .idea
