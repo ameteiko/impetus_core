@@ -4,6 +4,18 @@ import (
 	"fmt"
 
 	"github.com/neo4j/neo4j-go-driver/neo4j"
+
+	"github.com/ameteiko/mindnet/src/domain/entity"
+	"github.com/ameteiko/mindnet/src/domain/value"
+)
+
+const (
+	fieldContent    = "content"
+	fieldContentURI = "contentURI"
+	fieldSlug       = "slug"
+	fieldTitle      = "title"
+
+	defaultNodeType = "artefact"
 )
 
 // DB is an secondary adapter for the database layer. Meaning that it represents a connection to the backend databases.
@@ -17,29 +29,28 @@ func NewDB(dbSession neo4j.Session) *DB {
 	}
 }
 
-func (db *DB) CreateNode(label string, slug string, contentURI string) error {
-	result, err := db.session.Run(fmt.Sprintf(`CREATE (n: %s { slug: $slug, content_uri: $contentURI}) RETURN n`, label),
+func (db *DB) CreateNode(n entity.Node) error {
+	fmt.Println(n.Slug, n.Title, n.ID)
+	result, err := db.session.Run(
+		fmt.Sprintf(`CREATE (n: %s { slug: $slug, title: $title}) RETURN n`, defaultNodeType),
 		map[string]interface{}{
-			"label":      label,
-			"slug":       slug,
-			"contentURI": contentURI,
-		})
-
+			fieldSlug:       n.Slug.String(),
+			fieldTitle:      n.Title.String(),
+		},
+	)
 	if err != nil {
 		return err
 	}
 
 	for result.Next() {
-		fmt.Println(result)
+		// Log it here.
+		// fmt.Println(result)
 		// fmt.Printf("Created Item with Id = '%d' and Slug = '%s'\n", result.Record().GetByIndex(0).(int64), result.Record().GetByIndex(1).(string))
 	}
-	if err = result.Err(); err != nil {
-		return err // handle error
-	}
 
-	return err
+	return result.Err()
 }
 
-func (db *DB) ConnectNodes(slugA, slugB string, relationType string) {
-
+func (db *DB) GetNodeBySlug(slug value.Slug) (node entity.Node, err error) {
+	return node, err
 }

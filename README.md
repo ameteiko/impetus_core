@@ -12,7 +12,7 @@ MindMap stands for creating a model for a particular field of study.
 ### Create a docker volume to store the data: 
 ```bash
 export BASE_PATH=$(pwd)
-export PRJ_NAME=english
+export PRJ_NAME=sandbox
 mkdir -p ${BASE_PATH}/.data/${PRJ_NAME}/volume
 docker volume create                                  \
 --name ${PRJ_NAME}_mindnet                            \
@@ -24,7 +24,7 @@ docker volume create                                  \
 ### Preconfigure the database container
 ```bash
 export BASE_PATH=$(pwd)
-export PRJ_NAME=english
+export PRJ_NAME=sandbox
 export BOLT_CERTS=${BASE_PATH}/.data/${PRJ_NAME}/neo4j_certs/bolt
 mkdir -p ${BOLT_CERTS}/trusted
 mkdir -p ${BOLT_CERTS}/revoked
@@ -37,7 +37,7 @@ chmod 400 private.key
 ### Launch the database container
 ```bash
 export BASE_PATH=$(pwd)
-export PRJ_NAME=english
+export PRJ_NAME=sandbox
 export BOLT_CERTS=${BASE_PATH}/.data/${PRJ_NAME}/neo4j_certs/bolt
 docker run                                                   \
   --publish=7474:7474                                        \

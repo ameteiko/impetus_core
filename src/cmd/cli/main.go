@@ -4,10 +4,13 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/ameteiko/mindnet/src/domain/entity/dto"
+	appdi "github.com/ameteiko/mindnet/src/internal/app/di"
 	"github.com/ameteiko/mindnet/src/internal/config"
 	"github.com/ameteiko/mindnet/src/internal/di"
-	"github.com/ameteiko/mindnet/src/platform/neo4j"
 )
+
+//go:generate wire
 
 func main() {
 	cfg := config.NewConfig()
@@ -18,36 +21,18 @@ func main() {
 	}
 	defer dbSession.Close()
 
-	db := neo4j.NewDB(dbSession)
-	println(db)
+	application := appdi.ProvideApp(dbSession)
 
-	if err := db.CreateNode("Artifact", "ShellTest", "shtest.md"); err != nil {
+	// Create a node.
+	nodeDTO := dto.NewNode(
+		dto.WithNodeTitle("Node Title"),
+		dto.WithNodeSlug("node-title"),
+		dto.WithNodeKind("artf"),
+		dto.WithNodeContent("node content\ngoe\nhere"),
+	)
+	if _, err := application.CreateNode(nodeDTO); err != nil {
 		fmt.Println("Error: ", err)
 	}
-	//
-	// // Put the terminal into an uncooked mode.
-	// if err := (&readline.RawMode{}).Enter(); err != nil {
-	// 	log.Fatal("Cannot put terminal into a uncooked mode")
-	// }
-	//
-	// // Display an initial terminal caret.
-	// fmt.Print("\033c")
-	// input := cmd.NewInput()
-	// fmt.Print(input.ShellCaret())
-	//
-	// // Spin-up a goroutine to read user's input.
-	// c := make(chan byte)
-	// b := make([]byte, 1)
-	// go func() {
-	// 	for {
-	// 		_, _ = os.Stdin.Read(b)
-	// 		c <- b[0]
-	// 	}
-	// }()
-	//
-	// for {
-	// 	input.Process(<-c)
-	// 	fmt.Print("\033c")
-	// 	fmt.Printf("%s", input.ShellCaret())
-	// }
+
+	println("node was successfully created")
 }
