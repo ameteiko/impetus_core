@@ -7,7 +7,7 @@ MindMap stands for creating a model for a particular field of study.
 * `Golang` as a backend engine.
 * `MermaidJS` as a diagram-building tool. 
 
-[link](#inline-no-lint)
+[link](#inline-nolint)
 .
 
 ..
