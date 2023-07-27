@@ -5,6 +5,5 @@
 
 [Relative](../cli/main.go)
 
-[Broken](https://google.com/some-broken/link)
 
 [link](#inline-nolint)
