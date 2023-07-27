@@ -1,5 +1,5 @@
 name: Check Markdown Links
-run-name: ${{ github.actor }} is learning GitHub Actions
+run-name: ${{ github.ref_name }} by @${{ github.actor }}
 on: [push]
 jobs:
   markdown-link-check:
