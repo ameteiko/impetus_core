@@ -9,6 +9,6 @@ jobs:
       - uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:
           use-verbose-mode: 'no'
-          config-file: 'mlc_config.json'
+          config-file: '.mlc.config.json'
           folder-path: '.'
           max-depth: -1

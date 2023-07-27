@@ -1,6 +1,7 @@
 {
   "replacementPatterns": [
     {
+      "_comment": "Adds",
       "pattern": "^/",
       "replacement": "{{BASEURL}}/"
     }
