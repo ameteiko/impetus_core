@@ -1,4 +1,5 @@
-name: Check Markdown links
+name: Check Markdown Links
+run-name: ${{ github.actor }} is learning GitHub Actions
 on: [push]
 jobs:
   markdown-link-check:
