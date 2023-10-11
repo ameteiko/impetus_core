@@ -79,5 +79,7 @@ def colourise(text, colour):
 
 
 report = sys.stdin.read()
+if len(sys.argv) == 2:
+    TERMS_URL = sys.argv[1]
 highlighted_report = highlight_keywords(report, KeywordsReader(TERMS_URL).read())
 print(highlighted_report)
