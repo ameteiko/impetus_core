@@ -15,7 +15,7 @@ COLOURS = {
     "blue": "\x1b[6;30;44m",
     "magenta": "\x1b[6;30;45m",
     "cyan": "\x1b[6;30;46m",
-    "light cyan": "\x1b[6;30;96m",
+    "light cyan": "\x1b[6;106;30m",
     "empty": "\x1b[0m",
 }
 
