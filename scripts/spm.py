@@ -93,8 +93,8 @@ def normalise(args):
 
     if not args.repo_path or len(args.repo_path) == 0:
         raise "the --path parameter must not be empty"
-	if not args.repo_path.endswith("/"):
-		args.repo_path += "/"
+    if not args.repo_path.endswith("/"):
+        args.repo_path += "/"
 
     if not args.out or len(args.out) == 0:
         raise "the --out parameter must not be empty"
