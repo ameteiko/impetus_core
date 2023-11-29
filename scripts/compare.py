@@ -59,9 +59,11 @@ if "__main__" == __name__:
     table = PrettyTable(("Package", "Efferent", "Afferent", "External"))
 
     for pkg, pkg_metrics in target.items():
-        delta_efferent = pkg_metrics["efferent"] - base[pkg]["efferent"]
-        delta_afferent = pkg_metrics["afferent"] - base[pkg]["afferent"]
-        delta_external = pkg_metrics["external"] - base[pkg]["external"]
+        is_new = not base[pkg]
+
+        delta_efferent = pkg_metrics["efferent"] - base.get(pkg, {}).get("efferent", 0)
+        delta_afferent = pkg_metrics["afferent"] - base.get(pkg, {}).get("afferent", 0)
+        delta_external = pkg_metrics["external"] - base.get(pkg, {}).get("external", 0)
 
         efferent_label = " %+d" % delta_efferent if delta_efferent != 0 else ""
         afferent_label = " %+d" % delta_afferent if delta_afferent != 0 else ""
@@ -69,9 +71,9 @@ if "__main__" == __name__:
 
         table.add_row(
             (pkg,
-             "%d%s" % (pkg_metrics["efferent"], highlight_delta(efferent_label, delta_efferent)),
-             "%d%s" % (pkg_metrics["afferent"], highlight_delta(afferent_label, delta_afferent)),
-             "%d%s" % (pkg_metrics["external"], highlight_delta(external_label, delta_external)),
+             "%d%s" % (pkg_metrics["efferent"], highlight_delta(efferent_label, delta_efferent, is_new=is_new)),
+             "%d%s" % (pkg_metrics["afferent"], highlight_delta(afferent_label, delta_afferent, is_new=is_new)),
+             "%d%s" % (pkg_metrics["external"], highlight_delta(external_label, delta_external, is_new=is_new)),
              ))
 
     table.align["Package"] = "l"
