@@ -59,7 +59,7 @@ if "__main__" == __name__:
     table = PrettyTable(("Package", "Efferent", "Afferent", "External"))
 
     for pkg, pkg_metrics in target.items():
-        is_new = not base[pkg]
+        is_new = pkg not in base
 
         delta_efferent = pkg_metrics["efferent"] - base.get(pkg, {}).get("efferent", 0)
         delta_afferent = pkg_metrics["afferent"] - base.get(pkg, {}).get("afferent", 0)
