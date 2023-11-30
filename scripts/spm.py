@@ -122,7 +122,6 @@ if __name__ == "__main__":
 
     repo = Repo(args.repo_path)
     dependencies = fetch_deps(args.repo_path, args.skip)
-    [print(d, dependencies[d]) for d in dependencies]
     grouped_dependencies = group_deps(dependencies, args.go_module)
 
     out_file = open(args.out, "w")
