@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 from argparse import ArgumentParser
 import json
 from prettytable import PrettyTable
