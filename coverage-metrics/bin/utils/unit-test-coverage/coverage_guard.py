@@ -73,9 +73,10 @@ def parse_coverage(raw_coverage):
     res = {}
     # Extracts all coverage percentages from the unit test report.
     # https://regex101.com/r/xPIx8n/1
-    coverages = re.findall(r"^ok\s*" + re.escape(args.module) + r"/([\w/]*)\s*(?:\(cached\))?\s*coverage: (\d*\.\d*)%",
-                           raw_coverage,
-                           flags=re.MULTILINE)
+    coverages = re.findall(
+            r"^ok\s*" + re.escape(args.module) + r"/([\w/]*)\s*(?:\(cached\)|\d*\.\d*s)?\s*coverage: (\d*\.\d*)%",
+            raw_coverage,
+            flags=re.MULTILINE)
     for package, package_coverage in coverages:
         res[package] = float(package_coverage)
 
