@@ -142,6 +142,7 @@ if "__main__" == __name__:
 
         # Calculate the coverage.
         raw_coverage = fetch_raw_coverage(packages_with_coverage, args.repo_path)
+        print(raw_coverage)
         base_coverage = parse_coverage(raw_coverage)
 
         is_undertested = print_report(coverage_cfg, base_coverage)
