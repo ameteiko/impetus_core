@@ -12,6 +12,7 @@ MindMap stands for creating a model for a particular field of study.
 [Local](/domain/entity)
 
 [Relative](./domain/entity)
+[Another Relative](./domain/entity)
 
 
 [link](#inline-nolint)
